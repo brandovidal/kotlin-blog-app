@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "140220060528",
+    "project_id": "blog-app-dc291",
+    "storage_bucket": "blog-app-dc291.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:140220060528:android:1a27162b427a148f8635b5",
+        "android_client_info": {
+          "package_name": "com.brandovidal.blogapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "140220060528-e2buc8vvoqdbgh8djjvcmp4q7d5a8qqn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBV8j3emXSeZCIKGkS1i43on88-rViwhG0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "140220060528-e2buc8vvoqdbgh8djjvcmp4q7d5a8qqn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
