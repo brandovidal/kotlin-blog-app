@@ -1,42 +1,48 @@
 package com.brandovidal.blogapp
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var imageView: ImageView
+    private val REQUEST_IMAGE_CAPTURE = 1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val db = FirebaseFirestore.getInstance()
+        val btnTakePicture: Button = findViewById(R.id.btn_take_picture)
+        imageView = findViewById(R.id.imageView)
 
-        // Get info
-        db.collection("cities").document("LA").addSnapshotListener { value, error ->
-            error?.let {
-                Log.e("FirebaseError", error.toString())
-                    return@addSnapshotListener
-            }
-
-            value?.let { document ->
-                val city = document.toObject(City::class.java)
-                Log.d("Firebase", "DocumentSnapshot color: ${city?.color}")
-                Log.d("Firebase", "DocumentSnapshot population: ${city?.population}")
-                Log.d("Firebase", "DocumentSnapshot pc: ${city?.pc}")
-
-            }
+        btnTakePicture.setOnClickListener {
+            dispatchTakePictureIntent()
         }
+    }
 
-        // Insert info
-        db.collection("cities").document("NY").set(City(52000, "Yellow"))
-            .addOnSuccessListener {
-                Log.d("Firebase", "Save the info")
-            }.addOnFailureListener { error ->
-                Log.e("FirebaseError", error.toString())
-            }
+    private fun dispatchTakePictureIntent() {
+        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        try {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(this, "No se encontro ninguna app para tomar la foto", Toast.LENGTH_SHORT).show()
+        }
+    }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            val imageBitmap = data?.extras?.get("data") as Bitmap
+            imageView.setImageBitmap(imageBitmap)
+        }
     }
 }
-
-data class City(val population: Int = 0, val color: String = "", val pc: Int = 0)
