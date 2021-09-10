@@ -13,6 +13,10 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import java.io.ByteArrayOutputStream
+import java.lang.RuntimeException
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var imageView: ImageView
@@ -44,6 +48,32 @@ class MainActivity : AppCompatActivity() {
         if (result.resultCode == RESULT_OK) {
             val imageBitmap = result.data?.extras?.get("data") as Bitmap
             imageView.setImageBitmap(imageBitmap)
+            uploadPicture(imageBitmap)
+        }
+    }
+
+    private fun uploadPicture(bitmap: Bitmap) {
+        val storageRef = FirebaseStorage.getInstance().reference
+        val imagesRef = storageRef.child("images/${UUID.randomUUID()}.jpg")
+        val baos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val data = baos.toByteArray()
+        val uploadTask = imagesRef.putBytes(data)
+
+        uploadTask.continueWithTask { task ->
+            if (!task.isSuccessful) {
+                task.exception?.let { exception ->
+                    throw exception
+                }
+            }
+            imagesRef.downloadUrl
+        }.addOnCompleteListener{ task ->
+            if (task.isSuccessful) {
+                val downloadUrl = task.result.toString()
+                FirebaseFirestore.getInstance().collection("cities").document("LA").update(mapOf("imageUrl" to downloadUrl))
+
+                Log.d("Storage", "uploadPicture: $downloadUrl")
+            }
         }
     }
 
