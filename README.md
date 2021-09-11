@@ -19,27 +19,36 @@ Source File: app/build.gradle (:app)
     id 'kotlin-kapt'
     id 'com.google.gms.google-services'
   }
-
-  (...)
-  // Firebase
-  implementation 'com.google.firebase:firebase-firestore-ktx:23.0.3'
-  implementation 'com.google.firebase:firebase-storage:19.2.1'
-
-  // Navigation
-  implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
-  implementation "androidx.navigation:navigation-ui-ktx:2.3.5"
-
-  // Glide - Utils
-  implementation 'de.hdodenhof:circuleimageview:3.1.0'
-  implementation 'com.github.bumptech.glide:glide:4.12.0'
-  annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
-
-  // ViewModel and LiveData KTX
-  implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
-  implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
-
-  // Play services coroutines
-  implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1'
+  
+  android {
+    (...)
+    buildFeatures {
+        viewBinding true
+    }
+  }
+  
+  dependencies {
+      (...)
+      // Firebase
+      implementation 'com.google.firebase:firebase-firestore-ktx:23.0.3'
+      implementation 'com.google.firebase:firebase-storage:19.2.1'
+    
+      // Navigation
+      implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
+      implementation "androidx.navigation:navigation-ui-ktx:2.3.5"
+    
+      // Glide - Utils
+      implementation 'de.hdodenhof:circuleimageview:3.1.0'
+      implementation 'com.github.bumptech.glide:glide:4.12.0'
+      annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    
+      // ViewModel and LiveData KTX
+      implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
+      implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
+    
+      // Play services coroutines
+      implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1'
+  }
 ```
 
 ### Using in Build Gradle
