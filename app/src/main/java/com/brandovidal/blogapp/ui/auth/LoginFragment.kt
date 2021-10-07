@@ -72,6 +72,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 is Resource.Success -> {
                     binding.progressBar.visibility = View.GONE
                     findNavController().navigate(R.id.action_loginFragment_to_homeScreenFragment)
+
+                    Toast.makeText(
+                        requireContext(),
+                        "Welcome ${result.data?.email}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
                 is Resource.Failure -> {
                     binding.progressBar.visibility = View.GONE
