@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.liveData
 import com.brandovidal.blogapp.core.Resource
-import com.brandovidal.blogapp.domain.HomeScreenRepo
+import com.brandovidal.blogapp.domain.home.HomeScreenRepo
 import kotlinx.coroutines.Dispatchers
 import java.lang.Exception
 

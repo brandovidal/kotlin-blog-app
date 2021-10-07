@@ -1,4 +1,4 @@
-package com.brandovidal.blogapp.data.remote
+package com.brandovidal.blogapp.data.remote.home
 
 import com.brandovidal.blogapp.core.Resource
 import com.brandovidal.blogapp.data.model.Post

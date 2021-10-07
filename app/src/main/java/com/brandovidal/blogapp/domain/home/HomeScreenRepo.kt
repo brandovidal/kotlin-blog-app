@@ -1,4 +1,4 @@
-package com.brandovidal.blogapp.domain
+package com.brandovidal.blogapp.domain.home
 
 import com.brandovidal.blogapp.core.Resource
 import com.brandovidal.blogapp.data.model.Post
