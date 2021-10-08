@@ -32,6 +32,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         binding = FragmentLoginBinding.bind(view)
         isUserLoggedIn()
         doLogin()
+        goToSignUpPage()
     }
 
     private fun isUserLoggedIn() {
@@ -40,13 +41,18 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
     }
 
-
     private fun doLogin() {
         binding.btnSignin.setOnClickListener {
             val email = binding.editTextEmail.text.toString().trim()
             val password = binding.editTextPassword.text.toString().trim()
             validateCredentials(email, password)
             signIn(email, password)
+        }
+    }
+
+    private fun goToSignUpPage() {
+        binding.txtSignup.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
     }
 
